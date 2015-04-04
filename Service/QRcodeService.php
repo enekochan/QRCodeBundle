@@ -29,7 +29,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
     
     private function readConfiguration()
     {
-        $options = $this->container->getParameter('bushido_ioqr_code');
+        $options = $this->container->getParameter('bushidoio_qrcode');
         
         $this->cacheable = $options['cacheable'];
         $this->cacheDir = $options['cache_dir'];
@@ -76,13 +76,13 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         define('QR_PNG_MAXIMUM_SIZE', $this->pngMaximunSize);
     }
     
-    public function getQRCode($text, $_format = 'png', $size = 3)
+    public function getQRCode($text, $format = 'png', $size = 3)
     {
         $result = array();
         
-        $options = array('_format' => $_format, 'size' => $size);
+        $options = array('format' => $format, 'size' => $size);
         $fileName = $this->createFileName($text, $options);
-        $path = $this->getPath($text, $_format, $size);
+        $path = $this->getPath($text, $format, $size);
         
         $result['fileName'] = $fileName;
         $result['filePath'] = $path;
@@ -90,11 +90,11 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         return $result;
     }
     
-    public function getQRCodeBase64($text, $_format = 'png', $size = 3)
+    public function getQRCodeBase64($text, $format = 'png', $size = 3)
     {
         $content = "";
         
-        $path = $this->getPath($text, $_format, $size);
+        $path = $this->getPath($text, $format, $size);
         
         try {
             $content = file_get_contents($path);
@@ -105,9 +105,9 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         return base64_encode($content);
     }
     
-    private function getPath($text, $_format, $size)
+    private function getPath($text, $format, $size)
     {
-        $options = array('_format' => $_format, 'size' => $size);
+        $options = array('format' => $format, 'size' => $size);
         $path = $this->cacheDir . $this->createFileName($text, $options);
         
         if (!file_exists($path)){
@@ -119,9 +119,9 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
     
     private function createFileName($text, $options = null)
     {
-        $_format = $options['_format'];
+        $format = $options['format'];
         $size = $options['size'];
         
-        return urlencode($text . "_$size.$_format");
+        return urlencode($text . "_$size.$format");
     }
 }

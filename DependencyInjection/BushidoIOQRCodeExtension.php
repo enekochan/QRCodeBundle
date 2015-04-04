@@ -22,7 +22,7 @@ class BushidoIOQRCodeExtension extends Extension
         $configuration = new Configuration();
         $config = $this->processConfiguration($configuration, $configs);
 
-        $container->setParameter('bushido_ioqr_code', $config);
+        $container->setParameter('bushidoio_qrcode', $config);
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

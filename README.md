@@ -57,7 +57,7 @@ You can configure some options in `app/config/config.yml`. Those are the default
 values:
 
 ``` yaml
-bushido_ioqr_code:
+bushidoio_qrcode:
     cacheable: true
     cache_dir: ~
     logs_dir: ~
@@ -67,7 +67,7 @@ bushido_ioqr_code:
     png_maximun_size: 1024
     full_url: true
     http_max_age: 600
-    http_s_max_age: 600
+    https_max_age: 600
 ```
 
 Usage examples
@@ -77,21 +77,21 @@ If no parameters are used the default options for the image are PNG and size 3
 (87x87 pixels).
 
 ``` html
-<img src="{{ bushido_ioqr_code_url('Text to encode') }}" />
+<img src="{{ bushidoio_qrcode_url('Text to encode') }}" />
 
-<img src="{{ bushido_ioqr_code_url('Text to encode', 'png', 5) }}" />
+<img src="{{ bushidoio_qrcode_url('Text to encode', 'png', 5) }}" />
 
-<img src="{{ bushido_ioqr_code_base64('Text to encode') }}" />
+<img src="{{ bushidoio_qrcode_base64('Text to encode') }}" />
 
-<img src="{{ bushido_ioqr_code_base64('Text to encode', 'png', 5) }}" />
+<img src="{{ bushidoio_qrcode_base64('Text to encode', 'png', 5) }}" />
 
-<img src="{{ 'Text to encode'|bushido_ioqr_code_url }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_url }}" />
 
-<img src="{{ 'Text to encode'|bushido_ioqr_code_url('png', 5) }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_url('png', 5) }}" />
 
-<img src="{{ 'Text to encode'|bushido_ioqr_code_base64 }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_base64 }}" />
 
-<img src="{{ 'Text to encode'|bushido_ioqr_code_base64('png', 5) }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_base64('png', 5) }}" />
 ```
 
 License

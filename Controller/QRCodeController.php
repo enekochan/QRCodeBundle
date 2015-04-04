@@ -11,8 +11,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class QRCodeController extends Controller
 {
-    protected $max_age;
-    protected $s_max_age;
+    protected $http_max_age;
+    protected $https_max_age;
     
     public function __construct()
     {
@@ -22,12 +22,12 @@ class QRCodeController extends Controller
     {
         parent::setContainer($container);
         
-        $options = $this->container->getParameter('bushido_ioqr_code');
-        $this->max_age = $options['http_max_age'];
-        $this->s_max_age = $options['http_s_max_age'];
+        $options = $this->container->getParameter('bushidoio_qrcode');
+        $this->http_max_age = $options['http_max_age'];
+        $this->https_max_age = $options['https_max_age'];
     }
     
-    public function qrcodeAction(Request $request, $text = '', $_format = 'png')
+    public function qrcodeAction(Request $request, $text = '', $format = 'png')
     {
         $size = $request->query->get('size');
         if (is_null($size)) {
@@ -37,7 +37,7 @@ class QRCodeController extends Controller
         }
         
         $contentType = "";
-        switch ($_format) {
+        switch ($format) {
             case "png":
                 $contentType = "image/png";
                 break;
@@ -49,12 +49,12 @@ class QRCodeController extends Controller
                 break;
         }
         
-        if ($text === "" || $contentType === "" || !is_int($size) || $size < 1 || $size > 40) {
+        if ($text === '' || $contentType === '' || !is_int($size) || $size < 1 || $size > 40) {
             throw new HttpException(400);
         }
         
-        $qrCodeService = $this->get('bushido_ioqr_code.service');
-        $qrCode = $qrCodeService->getQRCode(urldecode($text), $_format, $size);
+        $qrCodeService = $this->get('bushidoio_qrcode.service');
+        $qrCode = $qrCodeService->getQRCode(urldecode($text), $format, $size);
         $localFilePath = $qrCode['filePath'];
         
         try {
@@ -65,15 +65,17 @@ class QRCodeController extends Controller
         
         $response = new Response();
         $response->headers->set('Content-Type', $contentType);
-        $response->headers->set('Content-Disposition', 'attachment;filename="' . urlencode($text) . '.' . $_format . '"');
+        $response->headers->set('Content-Disposition', 'attachment;filename="' . urlencode($text) . '.' . $format . '"');
         $response->setContent($content);
         
-        $response->setCache(array(
-            'max_age'       => $this->max_age,
-            's_maxage'      => $this->s_max_age,
-            'private'       => false,
-            'public'        => true,
-        ));
+        $response->setCache(
+            array(
+                'max_age'       => $this->http_max_age,
+                's_maxage'      => $this->https_max_age,
+                'private'       => false,
+                'public'        => true,
+            )
+        );
         
         return $response;
     }

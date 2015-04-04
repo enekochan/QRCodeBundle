@@ -19,7 +19,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $rootNode = $treeBuilder->root('bushido_ioqr_code');
+        $rootNode = $treeBuilder->root('bushidoio_qrcode');
 
         $this->addOptions($rootNode);
 
@@ -112,7 +112,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->children()
-                ->scalarNode('http_s_max_age')
+                ->scalarNode('https_max_age')
                     ->defaultValue('600')
                     ->info('Max age in seconds for the HTTP cache in shared connections (proxies)')
                     ->example('600')
@@ -120,7 +120,7 @@ class Configuration implements ConfigurationInterface
                         ->ifTrue(function($v) {
                             return (0 === preg_match('/^[0-9]+$/', $v));
                         })
-                        ->thenInvalid('http_s_max_age must be an integer value greater than 0 (default value 600).')
+                        ->thenInvalid('https_max_age must be an integer value greater than 0 (default value 600).')
                     ->end()
                 ->end()
             ->end()

@@ -26,8 +26,8 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
     public function getFilters()
     {
         return array(
-            new \Twig_SimpleFilter('bushido_ioqr_code_url', array($this, 'bushidoIOQRCodeUrlFilter')),
-            new \Twig_SimpleFilter('bushido_ioqr_code_base64', array($this, 'bushidoIOQRCodeBase64Filter'))
+            new \Twig_SimpleFilter('bushidoio_qrcode_url', array($this, 'bushidoIOQRCodeUrlFilter')),
+            new \Twig_SimpleFilter('bushidoio_qrcode_base64', array($this, 'bushidoIOQRCodeBase64Filter'))
         );
     }
     
@@ -37,8 +37,8 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
     public function getFunctions()
     {
         return array(
-            'bushido_ioqr_code_url' => new \Twig_Function_Method($this, 'bushidoIOQRCodeUrlFunction'),
-            'bushido_ioqr_code_base64' => new \Twig_Function_Method($this, 'bushidoIOQRCodeBase64Function')
+            'bushidoio_qrcode_url' => new \Twig_Function_Method($this, 'bushidoIOQRCodeUrlFunction'),
+            'bushidoio_qrcode_base64' => new \Twig_Function_Method($this, 'bushidoIOQRCodeBase64Function')
         );
     }
     
@@ -46,72 +46,79 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
      * Get the URL for the QRCode with the specified text, format and size
      *
      * @param string $text
-     * @param string $_format
+     * @param string $format
      * @param int $size
      * @return string The URL for the QRCode
      */
-    public function bushidoIOQRCodeUrlFilter($text = '', $_format = 'png', $size = 3)
+    public function bushidoIOQRCodeUrlFilter($text = '', $format = 'png', $size = 3)
     {
-        return $this->generateUrl($text, $_format, $size);
+        return $this->generateUrl($text, $format, $size);
     }
     
     /**
      * Get the Base64 data for the QRCode with the specified text, format and size
      *
      * @param string $text
-     * @param string $_format
+     * @param string $format
      * @param int $size
      * @return string The URL for the QRCode
      */
-    public function bushidoIOQRCodeBase64Filter($text = '', $_format = 'png', $size = 3)
+    public function bushidoIOQRCodeBase64Filter($text = '', $format = 'png', $size = 3)
     {
-        return $this->generateBase64($text, $_format, $size);
+        return $this->generateBase64($text, $format, $size);
     }
     
     /**
      * Get the URL for the QRCode with the specified text, format and size
      *
      * @param string $text
-     * @param string $_format
+     * @param string $format
      * @param int $size
      * @return string The URL for the QRCode
      */
-    public function bushidoIOQRCodeUrlFunction($text = '', $_format = 'png', $size = 3)
+    public function bushidoIOQRCodeUrlFunction($text = '', $format = 'png', $size = 3)
     {
-        return $this->generateUrl($text, $_format, $size);
+        return $this->generateUrl($text, $format, $size);
     }
     
     /**
      * Get the Base64 data for the QRCode with the specified text, format and size
      *
      * @param string $text
-     * @param string $_format
+     * @param string $format
      * @param int $size
      * @return string The URL for the QRCode
      */
-    public function bushidoIOQRCodeBase64Function($text = '', $_format = 'png', $size = 3)
+    public function bushidoIOQRCodeBase64Function($text = '', $format = 'png', $size = 3)
     {
-        return $this->generateBase64($text, $_format, $size);
+        return $this->generateBase64($text, $format, $size);
     }
     
-    private function generateUrl($text = '', $_format = 'png', $size = 3)
+    private function generateUrl($text = '', $format = 'png', $size = 3)
     {
-        $options = $this->container->getParameter('bushido_ioqr_code');
-        $fullUrl = $options['full_url'];
+        $options = $this->container->getParameter('bushidoio_qrcode');
+        $isFullUrl = $options['full_url'];
         
         $router = $this->container->get('router');
-        $url = $router->generate('bushido_ioqr_code_url', array(
-            'text' => urlencode($text),
-            '_format' => $_format,
-            'size' => $size,
-        ), $fullUrl);
+        $url = $router->generate(
+            'bushidoio_qrcode_url',
+            array(
+                'text' => urlencode($text),
+                'format' => $format,
+                'size' => $size,
+            ),
+            $isFullUrl
+        );
 
         return $url;
     }
     
-    private function generateBase64($text = '', $_format = 'png', $size = 3)
+    private function generateBase64($text = '', $format = 'png', $size = 3)
     {
-        return "data:image/$_format;base64," . $this->container->get('bushido_ioqr_code.service')->getQRCodeBase64($text, $_format, $size);
+        $service = $this->container->get('bushidoio_qrcode.service');
+        $image = $service->getQRCodeBase64($text, $format, $size);
+
+        return "data:image/$format;base64," . $image;
     }
     
     /**
@@ -119,6 +126,6 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
      */
     public function getName()
     {
-        return 'bushido_ioqr_code_url_extension';
+        return 'bushidoio_qrcode_url_extension';
     }
 }

@@ -1,10 +1,10 @@
 services:
-    bushido_ioqr_code.service:
+    bushidoio_qrcode.service:
         class: BushidoIO\QRCodeBundle\Service\QRcodeService
         calls:
             - [ setContainer, [ @service_container ] ]
 
-    bushido_ioqr_code.twig.qr_code_url_extension:
+    bushidoio_qrcode.twig.qr_code_url_extension:
         class: BushidoIO\QRCodeBundle\Twig\QRCodeUrlExtension
         tags:
             - { name: twig.extension }
