@@ -17,12 +17,16 @@ Features included:
 Installation
 ------------
 ### Step 1: Composer
-Add the following require line to the `composer.json` file:
+Add the following require and repositories lines to the `composer.json` file:
 ``` json
 {
     "require": {
         "bushidoio/qrcode-bundle": "dev-master"
-    }
+    },
+    "repositories" : [{
+        "type" : "vcs",
+        "url" : "https://github.com/BushidoIO/QRCodeBundle.git"
+    }]
 }
 ```
 And actually install it in your project using Composer:
