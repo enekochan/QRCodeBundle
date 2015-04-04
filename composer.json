@@ -1,0 +1,30 @@
+{
+    "name": "bushidoio/qrcode-bundle",
+    "type": "symfony-bundle",
+    "description": "BushidoIOQRCodeBundle",
+    "keywords": ["QR Code image generator"],
+    "homepage": "https://github.com/BushidoIO/QRCodeBundle",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eneko",
+            "email": "eneko@bushido.io"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.3",
+        "symfony/framework-bundle": "~2.3",
+        "symfony/twig-bundle": "~2.3"
+    },
+    "target-dir" : "BushidoIO/QRCodeBundle",
+    "autoload": {
+        "psr-4": {
+        	"BushidoIO\\QRCodeBundle\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
