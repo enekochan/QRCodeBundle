@@ -33,6 +33,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         
         $this->cacheable = $options['cacheable'];
         $this->cacheDir = $options['cache_dir'];
+        
         if (empty($this->cacheDir)) {
             $this->cacheDir = $this->container->getParameter("kernel.cache_dir") . DIRECTORY_SEPARATOR . 'qrcodes' . DIRECTORY_SEPARATOR;
         }

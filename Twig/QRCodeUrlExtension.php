@@ -97,7 +97,7 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
     private function generateUrl($text = '', $format = 'png', $size = 3)
     {
         $options = $this->container->getParameter('bushidoio_qrcode');
-        $isFullUrl = $options['full_url'];
+        $isAbsoluteUrl = $options['absolute_url'];
         
         $router = $this->container->get('router');
         $url = $router->generate(
@@ -107,7 +107,7 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
                 'format' => $format,
                 'size' => $size,
             ),
-            $isFullUrl
+            $isAbsoluteUrl
         );
 
         return $url;

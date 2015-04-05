@@ -10,8 +10,8 @@ Features included:
 - Cacheable images for less CPU usage
 - Configurable cache expiration age for both http and https
 - Cache and logs path can be located inside or outside Symfony2 app folder tree
-- Full path or relative URL generation
-- PNG maximun image size definition (default 1024 pixels)
+- Absolute or relative URL generation
+- PNG maximum image size definition (default 1024 pixels)
 - Configurable find mask setup (best mask, random mask and default mask value)
 
 Installation
@@ -64,8 +64,8 @@ bushidoio_qrcode:
     find_best_mask: true
     find_from_random: false
     default_mask: 2
-    png_maximun_size: 1024
-    full_url: true
+    png_maximum_size: 1024
+    absolute_url: true
     http_max_age: 600
     https_max_age: 600
 ```
