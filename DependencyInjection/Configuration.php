@@ -80,7 +80,7 @@ class Configuration implements ConfigurationInterface
                 ->end()
             ->end()
             ->children()
-                ->scalarNode('png_maximun_size')
+                ->scalarNode('png_maximum_size')
                     ->defaultValue('1024')
                     ->info('PNG image maximun size')
                     ->example('1024')
