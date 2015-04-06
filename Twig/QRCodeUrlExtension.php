@@ -115,7 +115,7 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
     
     private function generateBase64($text = '', $format = 'png', $size = 3)
     {
-        $service = $this->container->get('bushidoio_qrcode.service');
+        $service = $this->container->get('bushidoio_qrcode');
         $image = $service->getQRCodeBase64($text, $format, $size);
 
         return "data:image/$format;base64," . $image;

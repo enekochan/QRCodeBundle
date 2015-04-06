@@ -1,5 +1,5 @@
 services:
-    bushidoio_qrcode.service:
+    bushidoio_qrcode:
         class: BushidoIO\QRCodeBundle\Service\QRcodeService
         calls:
             - [ setContainer, [ @service_container ] ]

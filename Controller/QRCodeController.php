@@ -53,7 +53,7 @@ class QRCodeController extends Controller
             throw new HttpException(400);
         }
         
-        $qrCodeService = $this->get('bushidoio_qrcode.service');
+        $qrCodeService = $this->get('bushidoio_qrcode');
         $qrCode = $qrCodeService->getQRCode(urldecode($text), $format, $size);
         $localFilePath = $qrCode['filePath'];
         
