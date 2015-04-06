@@ -2,7 +2,7 @@
     "name": "bushidoio/qrcode-bundle",
     "type": "symfony-bundle",
     "description": "BushidoIOQRCodeBundle",
-    "keywords": ["QR Code image generator"],
+    "keywords": ["QR Code", "twig"],
     "homepage": "https://github.com/BushidoIO/QRCodeBundle",
     "license": "MIT",
     "authors": [

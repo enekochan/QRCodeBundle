@@ -16,7 +16,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
     private $findBestMask;
     private $findFromRandom;
     private $defaultMask;
-    private $pngMaximunSize;
+    private $pngMaximumSize;
     
     /**
      * {@inheritdoc}
@@ -52,7 +52,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         $this->findBestMask = $options['find_best_mask'];
         $this->findFromRandom = $options['find_from_random'];
         $this->defaultMask = $options['default_mask'];
-        $this->pngMaximunSize = $options['png_maximun_size'];
+        $this->pngMaximumSize = $options['png_maximum_size'];
         
         // Use cache - more disk reads but less CPU power, masks and format
         // templates are stored there
@@ -74,7 +74,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
 
         // Maximum allowed png image width (in pixels), tune to make sure GD and
         // PHP can handle such big images
-        define('QR_PNG_MAXIMUM_SIZE', $this->pngMaximunSize);
+        define('QR_PNG_MAXIMUM_SIZE', $this->pngMaximumSize);
     }
     
     public function getQRCode($text, $format = 'png', $size = 3)

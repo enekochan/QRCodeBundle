@@ -82,13 +82,13 @@ class Configuration implements ConfigurationInterface
             ->children()
                 ->scalarNode('png_maximum_size')
                     ->defaultValue('1024')
-                    ->info('PNG image maximun size')
+                    ->info('PNG image maximum size')
                     ->example('1024')
                     ->validate()
                         ->ifTrue(function($v) {
                             return (0 === preg_match('/^[0-9]+$/', $v));
                         })
-                        ->thenInvalid('png_maximun_size must be an integer value greater than 0 (default value 1024).')
+                        ->thenInvalid('png_maximum_size must be an integer value greater than 0 (default value 1024).')
                     ->end()
                 ->end()
             ->end()
