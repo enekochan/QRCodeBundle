@@ -99,7 +99,7 @@ License
 
 This bundle is under the MIT license. See the complete license in the bundle:
 
-    LICENSE
+    Resources/meta/LICENSE
 
 This bundle uses PHP QR Code encoder under the hood. PHP QR Code is distributed
 under LGPL 3. Copyright (C) 2010 Dominik Dzienia <deltalab at poczta dot fm>
