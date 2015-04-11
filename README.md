@@ -51,6 +51,15 @@ public function registerBundles()
 }
 ```
 
+## Step 3: Enable the route
+
+Add this to your routing configuration in `app/config/routing.yml`:
+
+``` yaml
+bushidoio_qrcode:
+    resource: "@BushidoIOQRCodeBundle/Resources/config/routing.yml"
+```
+
 Configuration
 -------------
 You can configure some options in `app/config/config.yml`. Those are the default
