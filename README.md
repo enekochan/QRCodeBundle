@@ -57,7 +57,8 @@ Add this to your routing configuration in `app/config/routing.yml`:
 
 ``` yaml
 bushidoio_qrcode:
-    resource: "@BushidoIOQRCodeBundle/Resources/config/routing.yml"
+    resource: "@BushidoIOQRCodeBundle/Controller/"
+    type:     annotation
 ```
 
 Configuration
@@ -82,25 +83,33 @@ bushidoio_qrcode:
 Usage examples
 --------------
 You can use Twig functions or filtes to create URL or BASE64 encoded images.
-If no parameters are used the default options for the image are PNG and size 3
-(87x87 pixels).
+If no parameters are used the default options for the image are size 3 (87x87
+pixels) and PNG format.
 
 ``` html
 <img src="{{ bushidoio_qrcode_url('Text to encode') }}" />
 
-<img src="{{ bushidoio_qrcode_url('Text to encode', 'png', 5) }}" />
+<img src="{{ bushidoio_qrcode_url('Text to encode', 5) }}" />
+
+<img src="{{ bushidoio_qrcode_url('Text to encode', 5, 'png') }}" />
 
 <img src="{{ bushidoio_qrcode_base64('Text to encode') }}" />
 
-<img src="{{ bushidoio_qrcode_base64('Text to encode', 'png', 5) }}" />
+<img src="{{ bushidoio_qrcode_base64('Text to encode', 5) }}" />
+
+<img src="{{ bushidoio_qrcode_base64('Text to encode', 5, 'png') }}" />
 
 <img src="{{ 'Text to encode'|bushidoio_qrcode_url }}" />
 
-<img src="{{ 'Text to encode'|bushidoio_qrcode_url('png', 5) }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_url(5) }}" />
+
+<img src="{{ 'Text to encode'|bushidoio_qrcode_url(5, 'png') }}" />
 
 <img src="{{ 'Text to encode'|bushidoio_qrcode_base64 }}" />
 
-<img src="{{ 'Text to encode'|bushidoio_qrcode_base64('png', 5) }}" />
+<img src="{{ 'Text to encode'|bushidoio_qrcode_base64(5) }}" />
+
+<img src="{{ 'Text to encode'|bushidoio_qrcode_base64(5, 'png') }}" />
 ```
 
 License

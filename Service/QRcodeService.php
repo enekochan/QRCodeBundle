@@ -77,13 +77,16 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         define('QR_PNG_MAXIMUM_SIZE', $this->pngMaximumSize);
     }
     
-    public function getQRCode($text, $format = 'png', $size = 3)
+    public function getQRCode($text, $size = 3, $format = 'png')
     {
         $result = array();
         
-        $options = array('format' => $format, 'size' => $size);
+        $options = array(
+            'size' => $size,
+            'format' => $format,
+        );
         $fileName = $this->createFileName($text, $options);
-        $path = $this->getPath($text, $format, $size);
+        $path = $this->getPath($text, $size, $format);
         
         $result['fileName'] = $fileName;
         $result['filePath'] = $path;
@@ -91,11 +94,11 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         return $result;
     }
     
-    public function getQRCodeBase64($text, $format = 'png', $size = 3)
+    public function getQRCodeBase64($text, $size = 3, $format = 'png')
     {
         $content = "";
         
-        $path = $this->getPath($text, $format, $size);
+        $path = $this->getPath($text, $size, $format);
         
         try {
             $content = file_get_contents($path);
@@ -106,9 +109,12 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         return base64_encode($content);
     }
     
-    private function getPath($text, $format, $size)
+    private function getPath($text, $size, $format)
     {
-        $options = array('format' => $format, 'size' => $size);
+        $options = array(
+            'size' => $size,
+            'format' => $format
+        );
         $path = $this->cacheDir . $this->createFileName($text, $options);
         
         if (!file_exists($path)){
@@ -118,10 +124,10 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         return $path;
     }
     
-    private function createFileName($text, $options = null)
+    private function createFileName($text, $options)
     {
-        $format = $options['format'];
         $size = $options['size'];
+        $format = $options['format'];
         
         return urlencode($text . "_$size.$format");
     }

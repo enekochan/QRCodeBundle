@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 
 class QRCodeController extends Controller
 {
@@ -27,8 +29,26 @@ class QRCodeController extends Controller
         $this->https_max_age = $options['https_max_age'];
     }
     
-    public function qrcodeAction(Request $request, $text = '', $format = 'png')
+    /**
+     * @Route(
+     *     "/bushidoioqrcode/{text}.{_format}",
+     *     name="bushidoio_qrcode_url",
+     *     requirements={
+     *         "text" = ".+"
+     *     },
+     *     defaults={
+     *         "_format": "png"
+     *     }
+     * )
+     * @Method("GET")
+     * @param Request $request The Request object
+     * @param string $text The text to be converted to a QRCode image
+     * @return Response The response with the image
+     */
+    public function qrcodeAction(Request $request, $text = '')
     {
+        $format = $request->getRequestFormat();
+
         $size = $request->query->get('size');
         if (is_null($size)) {
             $size = 3;
@@ -36,16 +56,16 @@ class QRCodeController extends Controller
             $size = intval($size);
         }
         
-        $contentType = "";
+        $contentType = '';
         switch ($format) {
-            case "png":
-                $contentType = "image/png";
+            case 'png':
+                $contentType = 'image/png';
                 break;
-            //case "jpg":
-            //    $contentType = "image/jpeg";
+            //case 'jpg':
+            //    $contentType = 'image/jpeg';
             //    break;
             default:
-                $contentType = "";
+                $contentType = '';
                 break;
         }
         
@@ -54,7 +74,7 @@ class QRCodeController extends Controller
         }
         
         $qrCodeService = $this->get('bushidoio_qrcode');
-        $qrCode = $qrCodeService->getQRCode(urldecode($text), $format, $size);
+        $qrCode = $qrCodeService->getQRCode(urldecode($text), $size, $format);
         $localFilePath = $qrCode['filePath'];
         
         try {

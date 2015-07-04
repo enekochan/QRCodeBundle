@@ -1,6 +1,0 @@
-bushidoio_qrcode_url:
-    pattern:  /bushidoioqrcode/{text}.{format}
-    defaults: { _controller: BushidoIOQRCodeBundle:QRCode:qrcode, format: png }
-    requirements:
-        format: png
-        text: .+
