@@ -37,8 +37,8 @@ class QRCodeUrlExtension extends \Twig_Extension implements ContainerAwareInterf
     public function getFunctions()
     {
         return array(
-            'bushidoio_qrcode_url' => new \Twig_Function_Method($this, 'bushidoIOQRCodeUrlFunction'),
-            'bushidoio_qrcode_base64' => new \Twig_Function_Method($this, 'bushidoIOQRCodeBase64Function')
+            new \Twig_SimpleFunction('bushidoio_qrcode_url', array($this, 'bushidoIOQRCodeUrlFunction')),
+            new \Twig_SimpleFunction('bushidoio_qrcode_base64', array($this, 'bushidoIOQRCodeBase64Function')),
         );
     }
     
