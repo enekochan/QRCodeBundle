@@ -5,7 +5,7 @@ namespace Cmobi\QRCodeBundle;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 use Cmobi\QRCodeBundle\DependencyInjection\BushidoIOQRCodeExtension;
 
-class BushidoIOQRCodeBundle extends Bundle
+class CmobiQRCodeBundle extends Bundle
 {
     public function getContainerExtension()
     {
