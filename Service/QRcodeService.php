@@ -1,13 +1,13 @@
 <?php
 
-namespace BushidoIO\QRCodeBundle\Service;
+namespace Cmobi\QRCodeBundle\Service;
 
 require_once __DIR__.'/../Lib/phpqrcode/qrlib.php';
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode implements ContainerAwareInterface
+class QRcodeService extends \Cmobi\QRCodeBundle\Lib\phpqrcode\QRcode implements ContainerAwareInterface
 {
     private $container;
     private $cacheable;

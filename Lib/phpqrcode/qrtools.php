@@ -1,6 +1,6 @@
 <?php
 
-namespace BushidoIO\QRCodeBundle\Lib\phpqrcode;
+namespace Cmobi\QRCodeBundle\Lib\phpqrcode;
 
 /*
  * PHP QR Code encoder
