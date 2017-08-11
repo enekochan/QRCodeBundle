@@ -1,6 +1,6 @@
 <?php
 
-namespace BushidoIO\QRCodeBundle\Twig;
+namespace Cmobi\QRCodeBundle\Twig;
 
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;

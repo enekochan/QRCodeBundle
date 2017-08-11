@@ -1,6 +1,6 @@
 <?php
 
-namespace BushidoIO\QRCodeBundle\Lib\phpqrcode;
+namespace Cmobi\QRCodeBundle\Lib\phpqrcode;
 
 //============================================================+
 // File name   : qrcode.php

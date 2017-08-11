@@ -1,6 +1,6 @@
 <?php
 
-namespace BushidoIO\QRCodeBundle\Controller;
+namespace Cmobi\QRCodeBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
