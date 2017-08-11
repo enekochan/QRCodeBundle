@@ -19,7 +19,7 @@
     "target-dir" : "cmobi/QRCodeBundle",
     "autoload": {
         "psr-0": {
-        	"cmobi\\QRCodeBundle\\": ""
+        	"Cmobi\\QRCodeBundle\\": ""
         }
     },
     "extra": {
