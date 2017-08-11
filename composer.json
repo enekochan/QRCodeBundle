@@ -16,10 +16,9 @@
         "symfony/framework-bundle": "~2.3",
         "symfony/twig-bundle": "~2.3"
     },
-    "target-dir" : "cmobi/QRCodeBundle",
     "autoload": {
-        "psr-0": {
-        	"Cmobi\\QRCodeBundle\\": ""
+        "psr-4": {
+            "Cmobi\\QRCodeBundle\\": ""
         }
     },
     "extra": {
