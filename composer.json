@@ -1,9 +1,9 @@
 {
-    "name": "bushidoio/qrcode-bundle",
+    "name": "cmobi/qrcode-bundle",
     "type": "symfony-bundle",
     "description": "BushidoIOQRCodeBundle",
     "keywords": ["QR Code", "twig"],
-    "homepage": "https://github.com/BushidoIO/QRCodeBundle",
+    "homepage": "https://github.com/contamobi/QRCodeBundle",
     "license": "MIT",
     "authors": [
         {
@@ -16,10 +16,9 @@
         "symfony/framework-bundle": "~2.3",
         "symfony/twig-bundle": "~2.3"
     },
-    "target-dir" : "BushidoIO/QRCodeBundle",
     "autoload": {
-        "psr-0": {
-        	"BushidoIO\\QRCodeBundle\\": ""
+        "psr-4": {
+            "Cmobi\\QRCodeBundle\\": ""
         }
     },
     "extra": {
