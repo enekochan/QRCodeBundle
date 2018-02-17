@@ -2,12 +2,13 @@
 
 namespace BushidoIO\QRCodeBundle\Service;
 
-require_once __DIR__.'/../Lib/phpqrcode/qrlib.php';
-
+use PHPQRCode\Constants;
+use PHPQRCode\QRcode;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
-class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode implements ContainerAwareInterface
+class QRcodeService extends QRcode implements ContainerAwareInterface
 {
     private $container;
     private $cacheable;
@@ -17,7 +18,7 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
     private $findFromRandom;
     private $defaultMask;
     private $pngMaximumSize;
-    
+
     /**
      * {@inheritdoc}
      */
@@ -26,41 +27,41 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
         $this->container = $container;
         $this->readConfiguration();
     }
-    
+
     private function readConfiguration()
     {
         $options = $this->container->getParameter('bushidoio_qrcode');
-        
+
         $this->cacheable = $options['cacheable'];
         $this->cacheDir = $options['cache_dir'];
-        
+
         if (empty($this->cacheDir)) {
-            $this->cacheDir = $this->container->getParameter("kernel.cache_dir") . DIRECTORY_SEPARATOR . 'qrcodes' . DIRECTORY_SEPARATOR;
+            $this->cacheDir = $this->container->getParameter('kernel.cache_dir') . DIRECTORY_SEPARATOR . 'qrcodes' . DIRECTORY_SEPARATOR;
         }
         if(!file_exists($this->cacheDir)){
             mkdir($this->cacheDir, 0777, true);
         }
-        
+
         $this->logsDir = $options['logs_dir'];
         if (empty($this->logsDir)) {
-            $this->logDir = $this->container->getParameter("kernel.logs_dir") . DIRECTORY_SEPARATOR . 'qrcodes' . DIRECTORY_SEPARATOR;
+            $this->logsDir = $this->container->getParameter('kernel.logs_dir') . DIRECTORY_SEPARATOR . 'qrcodes' . DIRECTORY_SEPARATOR;
         }
-        if(!file_exists($this->logDir)){
-            mkdir($this->logDir, 0777, true);
+        if(!file_exists($this->logsDir)){
+            mkdir($this->logsDir, 0777, true);
         }
-        
+
         $this->findBestMask = $options['find_best_mask'];
         $this->findFromRandom = $options['find_from_random'];
         $this->defaultMask = $options['default_mask'];
         $this->pngMaximumSize = $options['png_maximum_size'];
-        
+
         // Use cache - more disk reads but less CPU power, masks and format
         // templates are stored there
         define('QR_CACHEABLE', $this->cacheable);
         // Used when QR_CACHEABLE === true
         define('QR_CACHE_DIR', $this->cacheDir);
         // Default error logs dir
-        define('QR_LOG_DIR', $this->logDir);
+        define('QR_LOG_DIR', $this->logsDir);
 
         // If true, estimates best mask (spec. default, but extremally slow;
         // Set to false to significant performance boost but (propably) worst
@@ -80,32 +81,30 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
     public function getQRCode($text, $size = 3, $format = 'png')
     {
         $result = array();
-        
+
         $options = array(
             'size' => $size,
             'format' => $format,
         );
         $fileName = $this->createFileName($text, $options);
         $path = $this->getPath($text, $size, $format);
-        
+
         $result['fileName'] = $fileName;
         $result['filePath'] = $path;
-        
+
         return $result;
     }
     
     public function getQRCodeBase64($text, $size = 3, $format = 'png')
     {
-        $content = "";
-        
         $path = $this->getPath($text, $size, $format);
-        
+
         try {
             $content = file_get_contents($path);
         } catch (\Exception $e) {
             throw new NotFoundHttpException();
         }
-        
+
         return base64_encode($content);
     }
     
@@ -116,19 +115,19 @@ class QRcodeService extends \BushidoIO\QRCodeBundle\Lib\phpqrcode\QRcode impleme
             'format' => $format
         );
         $path = $this->cacheDir . $this->createFileName($text, $options);
-        
+
         if (!file_exists($path)){
-            $this->png($text, $path, QR_ECLEVEL_L, $size);
+            $this->png($text, $path, Constants::QR_ECLEVEL_L, $size);
         }
-        
+
         return $path;
     }
-    
+
     private function createFileName($text, $options)
     {
         $size = $options['size'];
         $format = $options['format'];
-        
-        return urlencode($text . "_$size.$format");
+
+        return urlencode(sprintf('%s_%d.%s', $text, $size, $format));
     }
 }

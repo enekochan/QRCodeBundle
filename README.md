@@ -111,20 +111,3 @@ pixels) and PNG format.
 
 <img src="{{ 'Text to encode'|bushidoio_qrcode_base64(5, 'png') }}" />
 ```
-
-License
--------
-
-This bundle is under the MIT license. See the complete license in the bundle:
-
-    Resources/meta/LICENSE
-
-This bundle uses PHP QR Code encoder under the hood. PHP QR Code is distributed
-under LGPL 3. Copyright (C) 2010 Dominik Dzienia <deltalab at poczta dot fm>
-See complete license in:
-
-    Lib/phpqrcode/LICENSE
-
-PHP QR Code encoder is a PHP implementation of QR Code 2-D barcode generator.
-It is pure-php LGPL-licensed implementation based on C libqrencode by Kentaro
-Fukuchi.

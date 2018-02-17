@@ -2,8 +2,8 @@
 
 namespace BushidoIO\QRCodeBundle;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
 use BushidoIO\QRCodeBundle\DependencyInjection\BushidoIOQRCodeExtension;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class BushidoIOQRCodeBundle extends Bundle
 {

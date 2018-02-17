@@ -2,7 +2,7 @@
     "name": "bushidoio/qrcode-bundle",
     "type": "symfony-bundle",
     "description": "BushidoIOQRCodeBundle",
-    "keywords": ["QR Code", "twig"],
+    "keywords": ["QRCode", "twig", "symfony"],
     "homepage": "https://github.com/BushidoIO/QRCodeBundle",
     "license": "MIT",
     "authors": [
@@ -14,12 +14,13 @@
     "require": {
         "php": ">=5.3.2",
         "symfony/framework-bundle": "~2.3",
-        "symfony/twig-bundle": "~2.3"
+        "symfony/twig-bundle": "~2.3",
+        "aferrandini/phpqrcode": "^1.0"
     },
     "target-dir" : "BushidoIO/QRCodeBundle",
     "autoload": {
         "psr-0": {
-        	"BushidoIO\\QRCodeBundle\\": ""
+            "BushidoIO\\QRCodeBundle\\": ""
         }
     },
     "extra": {

@@ -2,11 +2,11 @@ services:
     bushidoio_qrcode:
         class: BushidoIO\QRCodeBundle\Service\QRcodeService
         calls:
-            - [ setContainer, [ @service_container ] ]
+            - [ setContainer, [ "@service_container" ] ]
 
     bushidoio_qrcode.twig.qr_code_url_extension:
         class: BushidoIO\QRCodeBundle\Twig\QRCodeUrlExtension
         tags:
             - { name: twig.extension }
         calls:
-            - [ setContainer, [ @service_container ] ]
+            - [ setContainer, [ "@service_container" ] ]
